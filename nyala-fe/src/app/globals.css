@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* CSS untuk menyembunyikan scrollbar di browser modern */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none; /* untuk Internet Explorer */
+  scrollbar-width: none; /* untuk Firefox */
+}
