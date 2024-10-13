@@ -2,4 +2,4 @@
 .env
 .env.local
 /dist
-/src/uploads
+/src/uploads/
