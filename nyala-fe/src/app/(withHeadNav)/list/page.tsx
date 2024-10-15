@@ -2,11 +2,28 @@
 
 import { Map } from "@vis.gl/react-google-maps";
 import MapsProvider from "ln/providers/maps";
-import React from "react";
-import { locations } from "./locationdummy";
+import React, { useEffect, useState } from "react";
 import PoiMarkers from "ln/components/block/poi-marker";
+import { getLocations } from "ln/services/location";
+
+type Poi = { key: string; id: string; location: google.maps.LatLngLiteral };
 
 const ListPages = () => {
+  const [locations, setLocations] = useState<Poi[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const postData = await getLocations();
+
+        setLocations(postData);
+      } catch (error) {
+        console.log("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <div>
       <MapsProvider>

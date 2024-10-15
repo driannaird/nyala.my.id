@@ -1,3 +1,4 @@
+import { cn } from "ln/utils/cn";
 import { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 
@@ -5,9 +6,10 @@ interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
+  className?: string;
 }
 
-const Modal = ({ isOpen, onClose, children }: ModalProps) => {
+const Modal = ({ isOpen, onClose, children, className }: ModalProps) => {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
@@ -33,9 +35,12 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
         }`}
         onClick={onClose}>
         <div
-          className={`bg-white rounded-lg overflow-hidden transition-transform transform duration-300 ${
-            isOpen ? "scale-100" : "scale-95"
-          }`}
+          className={cn(
+            className,
+            `bg-white rounded-lg overflow-hidden transition-transform transform duration-300 ${
+              isOpen ? "scale-100" : "scale-95"
+            }`
+          )}
           onClick={(e) => e.stopPropagation()}>
           {children}
         </div>

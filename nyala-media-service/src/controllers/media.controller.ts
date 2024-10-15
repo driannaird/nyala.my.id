@@ -27,12 +27,20 @@ export const createMedia = (req: MulterRequest, res: Response) => {
     return res.status(400).send({ message: "No files uploaded." });
   }
 
-  const fileNames = (req.files as Express.Multer.File[]).map(
-    (file) => file.filename
-  );
+  const mediaResponses = (req.files as Express.Multer.File[]).map((file) => {
+    const originalName = file.originalname;
+    const fileUrl = `${process.env.BASE_URL}/media/${file.filename}`;
+    const altText = `Gambar ${originalName}`;
+
+    return {
+      name: originalName,
+      url: fileUrl,
+      alt: altText,
+    };
+  });
 
   return res.status(200).send({
     message: "Files uploaded successfully!",
-    fileNames,
+    files: mediaResponses, // Menyertakan detail file dalam respon
   });
 };

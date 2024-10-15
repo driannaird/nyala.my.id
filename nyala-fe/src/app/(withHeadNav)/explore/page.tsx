@@ -1,7 +1,7 @@
 import React from "react";
 
 const ExplorePage = () => {
-  return <div>ExplorePage</div>;
+  return <div className="max-w-2xl mx-auto">ExplorePage</div>;
 };
 
 export default ExplorePage;

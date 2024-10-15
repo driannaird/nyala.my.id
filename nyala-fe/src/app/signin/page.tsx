@@ -1,12 +1,12 @@
 import { redirect } from "next/navigation";
-import { signIn, auth, providerMap } from "ln/lib/auth";
+import { signIn, providerMap } from "ln/lib/auth";
 import { AuthError } from "next-auth";
 
 export default async function SignInPage(props: {
   searchParams: { callbackUrl: string | undefined };
 }) {
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 h-screen items-center justify-center">
       {Object.values(providerMap).map((provider) => (
         <form
           key={provider.name}
@@ -21,7 +21,7 @@ export default async function SignInPage(props: {
               // not existing, or the user not having the correct role.
               // In some cases, you may want to redirect to a custom error
               if (error instanceof AuthError) {
-                return redirect(`${SIGNIN_ERROR_URL}?error=${error.type}`);
+                return redirect(`/?error=${error.type}`);
               }
 
               // Otherwise if a redirects happens Next.js can handle it
@@ -31,7 +31,9 @@ export default async function SignInPage(props: {
               throw error;
             }
           }}>
-          <button type="submit">
+          <button
+            type="submit"
+            className="text-sm bg-primary text-white py-2 px-4 rounded-full">
             <span>Sign in with {provider.name}</span>
           </button>
         </form>

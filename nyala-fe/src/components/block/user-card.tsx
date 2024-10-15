@@ -1,9 +1,11 @@
+import { auth } from "ln/lib/auth";
 import User from "../fragments/user";
 
-const UserCard = () => {
+const UserCard = async () => {
+  const session = await auth();
   return (
     <div>
-      <User src="/user.png" />
+      <User src={session?.user?.image as string} />
     </div>
   );
 };

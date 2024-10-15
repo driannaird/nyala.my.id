@@ -5,7 +5,10 @@ import Google from "next-auth/providers/google";
 import Facebook from "next-auth/providers/facebook";
 import { prisma } from "./prisma";
 
-const providers: Provider[] = [Google, Facebook];
+const providers: Provider[] = [
+  Google({ allowDangerousEmailAccountLinking: true }),
+  Facebook({ allowDangerousEmailAccountLinking: true }),
+];
 
 export const providerMap = providers
   .map((provider) => {
@@ -23,5 +26,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   providers,
   pages: {
     signIn: "/signin",
+  },
+  callbacks: {
+    async redirect() {
+      return "/";
+    },
   },
 });

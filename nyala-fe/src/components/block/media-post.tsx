@@ -5,28 +5,28 @@ import { Icons } from "../fragments/icons";
 import Image from "next/image";
 import { useSwipeable } from "react-swipeable";
 
-const images = [
-  "/jalan.jpg",
-  "/white.png",
-  "/user.png",
-  "/user.png",
-  "/user.png",
-];
+interface MediaPost {
+  images: {
+    name: string;
+    alt: string;
+    url: string;
+  }[];
+}
 
-export default function MediaPost() {
+export default function MediaPost({ images }: MediaPost) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const goToPrevious = useCallback(() => {
     const isFirstSlide = currentIndex === 0;
-    const newIndex = isFirstSlide ? images.length - 1 : currentIndex - 1;
+    const newIndex = isFirstSlide ? images?.length - 1 : currentIndex - 1;
     setCurrentIndex(newIndex);
-  }, [currentIndex]);
+  }, [currentIndex, images?.length]);
 
   const goToNext = useCallback(() => {
-    const isLastSlide = currentIndex === images.length - 1;
+    const isLastSlide = currentIndex === images?.length - 1;
     const newIndex = isLastSlide ? 0 : currentIndex + 1;
     setCurrentIndex(newIndex);
-  }, [currentIndex]);
+  }, [currentIndex, images?.length]);
 
   const goToSlide = (slideIndex: number) => {
     setCurrentIndex(slideIndex);
@@ -61,11 +61,11 @@ export default function MediaPost() {
         <div
           className="absolute top-0 left-0 w-full h-full transition-transform duration-300 ease-in-out"
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
-          {images.map((src, index) => (
+          {images?.map((src, index) => (
             <Image
-              key={index}
-              src={src}
-              alt={`Slide ${index + 1}`}
+              key={src.name}
+              src={src.url}
+              alt={src.alt}
               className="absolute top-0 left-0 w-full h-full object-contain"
               width={500}
               height={500}
@@ -73,28 +73,40 @@ export default function MediaPost() {
             />
           ))}
         </div>
-        <button
-          onClick={goToPrevious}
-          className="absolute p-2 shadow shadow-neutral/20 drop-shadow top-1/2 left-2 transform -translate-y-1/2 bg-transparent hover:bg-white/10 rounded-full border border-white/50">
-          <Icons.back strokeWidth={1.25} className="text-white drop-shadow" />
-        </button>
-        <button
-          onClick={goToNext}
-          className="absolute p-2 shadow shadow-neutral/20 drop-shadow  top-1/2 right-2 transform -translate-y-1/2 bg-transparent hover:bg-white/10 rounded-full border border-white/50">
-          <Icons.next strokeWidth={1.25} className="text-white drop-shadow" />
-        </button>
+        {images?.length > 1 ? (
+          <>
+            <button
+              onClick={goToPrevious}
+              className="absolute p-2 shadow shadow-neutral/20 drop-shadow top-1/2 left-2 transform -translate-y-1/2 bg-transparent hover:bg-white/10 rounded-full border border-white/50">
+              <Icons.back
+                strokeWidth={1.25}
+                className="text-white drop-shadow"
+              />
+            </button>
+            <button
+              onClick={goToNext}
+              className="absolute p-2 shadow shadow-neutral/20 drop-shadow  top-1/2 right-2 transform -translate-y-1/2 bg-transparent hover:bg-white/10 rounded-full border border-white/50">
+              <Icons.next
+                strokeWidth={1.25}
+                className="text-white drop-shadow"
+              />
+            </button>
+          </>
+        ) : null}
       </div>
-      <div className="flex justify-center -mt-6 z-10 relative">
-        {images.map((_, index) => (
-          <button
-            key={index}
-            className={`w-2 h-2 rounded-full drop-shadow mx-1 focus:outline-none ${
-              index === currentIndex ? "bg-white" : "bg-gray-300/50"
-            }`}
-            onClick={() => goToSlide(index)}
-          />
-        ))}
-      </div>
+      {images?.length > 1 ? (
+        <div className="flex justify-center -mt-6 z-10 relative">
+          {images?.map((_, index) => (
+            <button
+              key={index}
+              className={`w-2 h-2 rounded-full drop-shadow mx-1 focus:outline-none ${
+                index === currentIndex ? "bg-white" : "bg-gray-300/50"
+              }`}
+              onClick={() => goToSlide(index)}
+            />
+          ))}
+        </div>
+      ) : null}
     </div>
   );
 }

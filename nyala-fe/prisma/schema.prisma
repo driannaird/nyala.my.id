@@ -77,16 +77,26 @@ model Post {
   id             String           @id @default(cuid())
   createdAt      DateTime         @default(now())
   updatedAt      DateTime         @updatedAt
-  decription     String
-  slug           String
+  description    String
   location       String
-  lat            String
-  lng            String
+  lat            Float
+  lng            Float
+  postCategory   PostCategory     @relation(fields: [postCategoryId], references: [id])
   postMedia      PostMedia[]
   postValidation PostValidation[]
   postComment    PostComment[]
-  User           User?            @relation(fields: [userId], references: [id])
-  userId         String?
+  User           User             @relation(fields: [userId], references: [id])
+  userId         String
+  postCategoryId String
+}
+
+model PostCategory {
+  id   String @id @default(cuid())
+  name String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Post      Post[]
 }
 
 model PostValidation {

@@ -1,16 +1,17 @@
 import HeaderCategory from "ln/components/block/header-category";
-import Post from "ln/components/block/post";
+import PostList from "ln/components/template/post-list";
+import { getPosts } from "ln/services/post";
 
-export default function Home() {
+const INITIAL_NUMBER_OF_POSTS = 3;
+
+export default async function App() {
+  const initialPosts = await getPosts(0, INITIAL_NUMBER_OF_POSTS);
+
   return (
     <>
       <HeaderCategory />
-      <div className="mb-[58px] px-4">
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
+      <div className="mb-[58px] px-4 max-w-2xl mx-auto">
+        <PostList initialPosts={initialPosts} />
       </div>
     </>
   );

@@ -1,23 +1,27 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import User from "../fragments/user";
 import ActionPost from "./action-post";
 import { FC } from "react";
 import MediaPost from "./media-post";
+import Link from "next/link";
+import { Post as PostType } from "ln/types/post";
 
 interface PostProps {
+  post: PostType;
   isDetail?: boolean;
 }
 
-const Post: FC<PostProps> = ({ isDetail = false }) => {
+const Post: FC<PostProps> = ({ post, isDetail = false }) => {
   return (
     <div className="flex flex-col gap-[14px] py-[14px] border-b border-border">
       <div className="flex flex-col gap-2">
         {/* Head post */}
         <div className="flex gap-2 items-center">
-          <User src="/user.png" />
+          <User src={post.User.image === null ? "-" : post.User.image} />
           <div className="flex flex-col">
             <div className="flex items-center gap-1">
               <span className="font-semibold text-sm text-neutral">
-                John Doe
+                {post?.User?.name}
               </span>
               <span className="font-medium text-[10px] text-text-drop">
                 @johndoe
@@ -28,7 +32,7 @@ const Post: FC<PostProps> = ({ isDetail = false }) => {
               </span>
             </div>
             <p className="text-[10px] text-neutral">
-              Jalan maju mundur, Jawa Tengah, Indonesia
+              {post?.lat} - {post?.lng}
             </p>
           </div>
         </div>
@@ -36,35 +40,29 @@ const Post: FC<PostProps> = ({ isDetail = false }) => {
         {/* Text post */}
         <div>
           {isDetail ? (
-            <p className="text-sm leading-relaxed">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry`s standard dum Lorem
-              ipsum dolor sit amet consectetur adipisicing elit. Provident nemo
-              vel, fugit obcaecati recusandae sunt. Natus placeat ea magnam
-              molestias sit repellat corporis consequatur quod porro,
-              exercitationem, dolorum ratione! Nesciunt?
-            </p>
+            <p className="text-sm leading-relaxed">{post?.description}</p>
           ) : (
             <>
-              <p className="text-sm leading-relaxed">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry`s standard dum ...
+              <p className="text-sm leading-relaxed truncate whitespace-nowrap overflow-hidden text-ellipsis">
+                {post?.description}
               </p>
-              <p className="text-sm font-semibold leading-relaxed">
-                Selengkapnya
-              </p>
+              <Link
+                href={`/app/posting/d/${post?.id}`}
+                className="text-sm font-semibold leading-relaxed">
+                Lihat Detail
+              </Link>
             </>
           )}
         </div>
 
         {/* Image Post */}
         <div className="">
-          <MediaPost />
+          <MediaPost images={post?.postMedia} />
         </div>
       </div>
 
       {/* Action Post */}
-      <ActionPost />
+      <ActionPost post={post} />
     </div>
   );
 };

@@ -38,20 +38,24 @@ export default function ImageUploader({
   return (
     <div className="p-4">
       {isActive ? (
-        <label
-          htmlFor="image-upload"
-          className="cursor-pointer relative border flex items-center gap-[6px] p-2 rounded-lg w-fit border-border text-icon">
-          <input
-            id="image-upload"
-            type="file"
-            accept="image/*"
-            className="hidden"
-            onChange={handleImageUpload}
-          />
+        <>
+          {images.length < 5 ? (
+            <label
+              htmlFor="image-upload"
+              className="cursor-pointer relative border flex items-center gap-[6px] p-2 rounded-lg w-fit border-border text-icon">
+              <input
+                id="image-upload"
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={handleImageUpload}
+              />
 
-          <Icons.images strokeWidth={1.25} />
-          <span className="text-sm">Upload gambar</span>
-        </label>
+              <Icons.images strokeWidth={1.25} />
+              <span className="text-sm">Upload gambar</span>
+            </label>
+          ) : null}
+        </>
       ) : null}
 
       <div className="grid grid-cols-2 gap-4 mt-4">

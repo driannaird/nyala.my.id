@@ -19,7 +19,7 @@ const HeaderPost: FC<HeaderPostProps> = ({
   onClick,
 }) => {
   return (
-    <div className="sticky z-50 top-0 bg-white flex justify-between px-4 items-center h-[58px]">
+    <div className="sticky z-50 top-0 bg-white flex justify-between px-4 items-center h-[58px] max-w-2xl mx-auto">
       <div className="">
         <IconButton onClick={onClickBack}>
           <Icons.back strokeWidth={1.25} />

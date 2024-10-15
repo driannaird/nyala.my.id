@@ -27,7 +27,7 @@ const LocationInput: FC<LocationInputProps> = ({
       <MapsProvider>
         <Map
           defaultCenter={center}
-          defaultZoom={20}
+          defaultZoom={15}
           style={{ width: "100%", height: "400px" }}>
           <Marker
             position={markerPosition}

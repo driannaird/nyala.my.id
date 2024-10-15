@@ -1,12 +1,20 @@
-import React from "react";
+import React, { FC } from "react";
 import { Icons } from "../fragments/icons";
+import Link from "next/link";
+import { Post } from "ln/types/post";
 
-const CommentButton = () => {
+interface CommentButtonProps {
+  post: Post;
+}
+
+const CommentButton: FC<CommentButtonProps> = ({ post }) => {
   return (
-    <button className="text-icon flex gap-2 items-center">
+    <Link
+      href={`/app/posting/d/${post.id}`}
+      className="text-icon flex gap-2 items-center">
       <Icons.comment strokeWidth={1.25} />
-      <span>7</span>
-    </button>
+      {/* <span>{}</span> */}
+    </Link>
   );
 };
 

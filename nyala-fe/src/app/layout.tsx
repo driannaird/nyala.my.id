@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Roboto } from "next/font/google";
+import { SessionProvider } from "next-auth/react";
 // import { auth } from "ln/lib/auth";
 
 const roboto = Roboto({ weight: "400", subsets: ["latin"] });
@@ -18,8 +19,10 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${roboto.className} antialiased`}>
-        {children}
-        <div id="portal-root"></div>
+        <SessionProvider>
+          {children}
+          <div id="portal-root"></div>
+        </SessionProvider>
       </body>
     </html>
   );
