@@ -20,6 +20,12 @@ const nextConfig = {
         port: "8000",
         pathname: "/media/**",
       },
+      {
+        protocol: "https",
+        hostname: "api.nyala.my.id",
+        port: "",
+        pathname: "/media/**",
+      },
     ],
   },
 };
