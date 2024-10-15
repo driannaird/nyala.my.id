@@ -10,7 +10,7 @@ interface CommentButtonProps {
 const CommentButton: FC<CommentButtonProps> = ({ post }) => {
   return (
     <Link
-      href={`/app/posting/d/${post.id}`}
+      href={`/posting/d/${post.id}`}
       className="text-icon flex gap-2 items-center">
       <Icons.comment strokeWidth={1.25} />
       {/* <span>{}</span> */}

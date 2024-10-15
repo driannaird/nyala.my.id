@@ -64,7 +64,7 @@ const CreatePostPage = () => {
 
       if (res.status === 200) {
         alert("Buat postingan berhasil");
-        router.push(`/app/posting/d/${res.data.id}`);
+        router.push(`/posting/d/${res.data.id}`);
 
         return setLoading(false);
       }

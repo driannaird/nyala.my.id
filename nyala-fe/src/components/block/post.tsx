@@ -47,7 +47,7 @@ const Post: FC<PostProps> = ({ post, isDetail = false }) => {
                 {post?.description}
               </p>
               <Link
-                href={`/app/posting/d/${post?.id}`}
+                href={`/posting/d/${post?.id}`}
                 className="text-sm font-semibold leading-relaxed">
                 Lihat Detail
               </Link>

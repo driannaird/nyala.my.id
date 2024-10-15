@@ -51,7 +51,7 @@ const PoiMarkers = (props: { pois: Poi[] }) => {
           </p>
         </div>
         <Link
-          href={`/app/posting/d/${postId}`}
+          href={`/posting/d/${postId}`}
           className="w-full text-neutral py-3 border-y border-border inline-block text-center">
           Lihat
         </Link>
