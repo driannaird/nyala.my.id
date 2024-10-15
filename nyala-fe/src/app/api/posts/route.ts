@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
     });
 
     const uploadImages = await axios.post(
-      "http://localhost:8000/media/upload",
+      `${process.env.URL_MEDIA}/media/upload`,
       formData,
       {
         headers: {
